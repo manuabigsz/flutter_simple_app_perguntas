@@ -8,16 +8,20 @@ class Resposta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double larguraDisponivel = MediaQuery.of(context).size.width - 200;
+
     return Container(
-      width: double.infinity,
+      width: larguraDisponivel,
+      height: 80,
       child: ElevatedButton(
         onPressed: onSelecao,
         child: Text(texto),
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
-            textStyle: TextStyle(
-              color: Colors.white,
-            )),
+          backgroundColor: Color.fromARGB(255, 149, 125, 255),
+          textStyle: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }

@@ -5,8 +5,14 @@ import 'package:primeiro_projeto/respostas.dart';
 
 import 'resultado.dart';
 
-main() {
-  runApp(new PerguntaApp());
+void main() {
+  runApp(MaterialApp(
+    home: BemVindo(),
+    routes: {
+      '/bem-vindo': (context) => BemVindo(),
+      '/pergunta-app': (context) => PerguntaApp(),
+    },
+  ));
 }
 
 class _PerguntaAppState extends State<PerguntaApp> {
@@ -42,7 +48,6 @@ class _PerguntaAppState extends State<PerguntaApp> {
       ],
     },
   ];
-
   void _respoder(int pontuacao) {
     if (pergSelecionada) {
       setState(() {
@@ -67,17 +72,24 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color.fromARGB(255, 204, 193, 206),
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: Text('Perguntas'),
+          backgroundColor: Color.fromARGB(255, 149, 125, 255),
         ),
-        body: pergSelecionada
-            ? Questionario(
-                perguntas: _perguntas,
-                perguntaSelecionada: _perguntaSelecionada,
-                quandoResponder: _respoder,
-              )
-            : Resultado(_pontuacaoTotal, _reiniciarQuest),
+        body: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: pergSelecionada
+              ? Questionario(
+                  perguntas: _perguntas,
+                  perguntaSelecionada: _perguntaSelecionada,
+                  quandoResponder: _respoder,
+                )
+              : Resultado(_pontuacaoTotal, _reiniciarQuest),
+        ),
       ),
     );
   }
@@ -87,5 +99,40 @@ class PerguntaApp extends StatefulWidget {
   @override
   _PerguntaAppState createState() {
     return _PerguntaAppState();
+  }
+}
+
+class BemVindo extends StatefulWidget {
+  @override
+  State<BemVindo> createState() => _BemVindo();
+}
+
+class _BemVindo extends State<BemVindo> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Color.fromARGB(255, 204, 193, 206),
+        child: Center(
+          child: Text(
+            'Seja bem vindo!',
+            style: TextStyle(
+                color: Colors.purple,
+                fontWeight: FontWeight.bold,
+                fontSize: 30),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
+        child: Icon(
+          Icons.arrow_forward,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.pushNamed(context, '/pergunta-app');
+        },
+      ),
+    );
   }
 }

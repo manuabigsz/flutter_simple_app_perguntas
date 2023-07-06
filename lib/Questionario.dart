@@ -29,10 +29,20 @@ class Questionario extends StatelessWidget {
     return Column(
       children: [
         Questao(perguntas[perguntaSelecionada]['texto'] as String),
+        SizedBox(
+            height:
+                10), // Adiciona um SizedBox com altura de 10 entre os elementos
         ...respostas.map((resp) {
-          return Resposta(
-            resp['texto'].toString(),
-            () => quandoResponder(int.parse(resp['nota'].toString())),
+          return Column(
+            children: [
+              Resposta(
+                resp['texto'].toString(),
+                () => quandoResponder(int.parse(resp['nota'].toString())),
+              ),
+              SizedBox(
+                  height:
+                      10), // Adiciona um SizedBox com altura de 10 entre as respostas
+            ],
           );
         }).toList(),
       ],

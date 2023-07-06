@@ -8,35 +8,47 @@ class Resultado extends StatelessWidget {
 
   String get fraseResult {
     if (pontuacao < 8) {
-      return 'Parabéns';
+      return 'Parabéns! Você fez $pontuacao pontos.';
     } else if (pontuacao < 12) {
-      return 'vc é bom';
+      return 'Você é bom. Você fez $pontuacao pontos.';
     } else if (pontuacao < 16) {
-      return 'impresisonante';
+      return 'Muito impressionante! Você fez $pontuacao pontos.';
     } else {
-      return 'nivel jedi!';
+      return 'Você é um Jedi! Você fez $pontuacao pontos.';
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    double larguraDisponivel = MediaQuery.of(context).size.width - 200;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ElevatedButton(
+        Center(
           child: Text(
-            'Reiniciar',
-            style: TextStyle(color: Colors.white),
+            fraseResult,
+            style: TextStyle(fontSize: 25, color: Colors.purple),
           ),
-          onPressed: quandoReiniciarQuest,
         ),
         SizedBox(
           height: 20,
         ),
-        Center(
-          child: Text(
-            fraseResult,
-            style: TextStyle(fontSize: 25),
+        Container(
+          width: larguraDisponivel,
+          height: 80,
+          child: ElevatedButton(
+            child: Text(
+              'Reiniciar',
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: quandoReiniciarQuest,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 149, 125, 255),
+              textStyle: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ],
